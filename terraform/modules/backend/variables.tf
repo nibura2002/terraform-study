@@ -8,6 +8,11 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
+variable "public_subnet_ids" {
+  description = "The IDs of the public subnets"
+  type        = list(string)
+}
+
 variable "db_endpoint" {
   description = "The endpoint of the database"
   type        = string

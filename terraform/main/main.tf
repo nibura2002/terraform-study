@@ -25,6 +25,7 @@ module "backend" {
   source = "../modules/backend"
   vpc_id = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnet_ids
+  public_subnet_ids = module.vpc.public_subnet_ids
   db_endpoint = module.database.db_endpoint
   db_username = module.database.db_username
   db_password = module.database.db_password

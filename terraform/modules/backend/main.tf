@@ -4,6 +4,13 @@ resource "aws_security_group" "api" {
   vpc_id      = var.vpc_id
 
   ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
     from_port   = 8000
     to_port     = 8000
     protocol    = "tcp"
@@ -102,7 +109,7 @@ resource "aws_lb" "api" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.api.id]
-  subnets            = var.subnet_ids
+  subnets            = var.public_subnet_ids
 
   tags = {
     Name = "demo-api-lb"
@@ -140,7 +147,7 @@ resource "aws_ecs_service" "api" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets         = var.subnet_ids
+    subnets         = var.public_subnet_ids
     security_groups = [aws_security_group.api.id]
     assign_public_ip = true
   }
